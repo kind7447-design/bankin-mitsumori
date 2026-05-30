@@ -8,14 +8,17 @@ const KEYS = {
 
 // ===== Quotes (Supabase) =====
 
+const getTenant = () => window.location.hostname;
+
 export async function saveQuote(quote: Quote): Promise<void> {
-  await supabase.from('quotes').upsert({ id: quote.id, data: quote });
+  await supabase.from('quotes').upsert({ id: quote.id, data: quote, tenant: getTenant() });
 }
 
 export async function loadQuotes(): Promise<Quote[]> {
   const { data, error } = await supabase
     .from('quotes')
     .select('data')
+    .eq('tenant', getTenant())
     .order('created_at', { ascending: false });
 
   if (error || !data) return [];
@@ -34,7 +37,7 @@ export async function loadQuotes(): Promise<Quote[]> {
 }
 
 export async function deleteQuote(id: string): Promise<void> {
-  await supabase.from('quotes').delete().eq('id', id);
+  await supabase.from('quotes').delete().eq('id', id).eq('tenant', getTenant());
 }
 
 // ===== Creators (Supabase) =====
