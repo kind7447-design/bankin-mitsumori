@@ -16,7 +16,7 @@ export async function exportQuoteToExcel(quote: Quote, breakdownCost = false): P
   const today = new Date().toLocaleDateString('ja-JP');
 
   const wb = new ExcelJS.Workbook();
-  wb.creator = '林製作所';
+  wb.creator = '板金見積システム';
 
   // ===== 見積書シート =====
   const ws = wb.addWorksheet('見積書');

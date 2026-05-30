@@ -162,9 +162,6 @@ export function exportQuoteToPdf(quote: Quote, breakdownCost = false): void {
 <div class="title-row">
   <div class="title">見　　積　　書</div>
   <div class="company-info">
-    株式会社　林製作所<br>
-    群馬県高崎市沖町368-1<br>
-    Tel&nbsp;&nbsp;027-343-1211&nbsp;&nbsp;&nbsp;Fax&nbsp;&nbsp;027-343-1213<br>
     担当：${quote.createdBy ?? ''}
   </div>
 </div>

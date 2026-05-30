@@ -37,19 +37,20 @@ export const INITIAL_MATERIALS: Material[] = [
 ];
 
 // Omit<ProcessItem, 'id' | 'qty' | 'enabled'> — qty は makeProcesses で設定
+// ※ 加工費は参考値です。実際のチャージに合わせて「加工マスタ」から変更してください
 export const INITIAL_PROCESSES: Omit<ProcessItem, 'id' | 'qty' | 'enabled'>[] = [
   // 周長ベース（板厚・サイズ自動計算）
-  { name: 'レーザー切断', unit: 'mm', unitPrice: 0.6, setupCost: 2000, calcType: 'perimeter' },
-  { name: '複合機',       unit: 'mm', unitPrice: 0.6, setupCost: 2000, calcType: 'perimeter' },
-  { name: 'タレパン',     unit: 'mm', unitPrice: 0.2, setupCost: 2000, calcType: 'perimeter' },
+  { name: 'レーザー切断', unit: 'mm', unitPrice: 0.48, setupCost: 1600, calcType: 'perimeter' },
+  { name: '複合機',       unit: 'mm', unitPrice: 0.48, setupCost: 1600, calcType: 'perimeter' },
+  { name: 'タレパン',     unit: 'mm', unitPrice: 0.16, setupCost: 1600, calcType: 'perimeter' },
   // 標準（段取費 ÷ ロット + 数量 × 単価）
-  { name: 'タップ加工',         unit: '箇所', unitPrice: 10,  setupCost: 600 },
-  { name: '曲げ加工',           unit: '回',   unitPrice: 25,  setupCost: 800 },
-  { name: 'バリ取り',           unit: 'mm',   unitPrice: 0.08, setupCost: 0, calcType: 'perimeter_raw' },
-  { name: 'スポット溶接',       unit: '点',   unitPrice: 20,  setupCost: 800 },
-  { name: 'TIG溶接',            unit: '分',   unitPrice: 60,  setupCost: 800 },
-  { name: '表面処理(メッキ)',   unit: '枚',   unitPrice: 400, setupCost: 300 },
-  { name: '塗装',               unit: '枚',   unitPrice: 600, setupCost: 300 },
-  { name: 'ザグリ加工',         unit: '箇所', unitPrice: 10,  setupCost: 400 },
-  { name: 'スタッドボルト挿入', unit: '箇所', unitPrice: 15,  setupCost: 400 },
+  { name: 'タップ加工',         unit: '箇所', unitPrice: 8,    setupCost: 480 },
+  { name: '曲げ加工',           unit: '回',   unitPrice: 20,   setupCost: 640 },
+  { name: 'バリ取り',           unit: 'mm',   unitPrice: 0.064, setupCost: 0, calcType: 'perimeter_raw' },
+  { name: 'スポット溶接',       unit: '点',   unitPrice: 16,   setupCost: 640 },
+  { name: 'TIG溶接',            unit: '分',   unitPrice: 48,   setupCost: 640 },
+  { name: '表面処理(メッキ)',   unit: '枚',   unitPrice: 320,  setupCost: 240 },
+  { name: '塗装',               unit: '枚',   unitPrice: 480,  setupCost: 240 },
+  { name: 'ザグリ加工',         unit: '箇所', unitPrice: 8,    setupCost: 320 },
+  { name: 'スタッドボルト挿入', unit: '箇所', unitPrice: 12,   setupCost: 320 },
 ];
