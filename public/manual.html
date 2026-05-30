@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>見積アプリ 操作マニュアル｜株式会社 林製作所</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Meiryo", "Hiragino Kaku Gothic ProN", sans-serif;
+    font-size: 15px;
+    color: #222;
+    background: #f5f6fa;
+    line-height: 1.8;
+  }
+
+  /* ヘッダー */
+  .site-header {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    color: #fff;
+    padding: 28px 32px;
+  }
+  .site-header h1 { font-size: 22px; font-weight: bold; margin-bottom: 4px; }
+  .site-header p { font-size: 13px; opacity: 0.85; }
+
+  /* レイアウト */
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 20px 64px; }
+
+  /* 目次 */
+  .toc {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .toc h2 { font-size: 14px; color: #64748b; margin-bottom: 10px; letter-spacing: 0.05em; }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin: 4px 0; }
+  .toc a { color: #2563eb; text-decoration: none; font-size: 14px; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* セクション */
+  .section {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .section-header {
+    background: #1e40af;
+    color: #fff;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-header .badge {
+    background: rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 1px 10px;
+    font-size: 12px;
+    font-weight: normal;
+  }
+  .section-body { padding: 24px; }
+
+  /* サブセクション */
+  .subsection { margin-bottom: 20px; }
+  .subsection h3 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1e40af;
+    border-left: 3px solid #3b82f6;
+    padding-left: 10px;
+    margin-bottom: 10px;
+  }
+
+  /* テーブル */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 6px;
+  }
+  th {
+    background: #eff6ff;
+    color: #1e40af;
+    font-weight: bold;
+    padding: 8px 12px;
+    text-align: left;
+    border: 1px solid #bfdbfe;
+  }
+  td {
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8fafc; }
+
+  /* ノート・警告 */
+  .note {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-top: 10px;
+    color: #1e3a8a;
+  }
+  .warn {
+    background: #fefce8;
+    border-left: 4px solid #f59e0b;
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-top: 10px;
+    color: #78350f;
+  }
+  .tip {
+    background: #f0fdf4;
+    border-left: 4px solid #22c55e;
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-top: 10px;
+    color: #14532d;
+  }
+
+  /* ステップ番号 */
+  .step-num {
+    display: inline-block;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-right: 6px;
+  }
+
+  /* ボタンラベル */
+  .btn-label {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .btn-blue  { background: #2563eb; color: #fff; }
+  .btn-green { background: #16a34a; color: #fff; }
+  .btn-red   { background: #dc2626; color: #fff; }
+  .btn-indigo{ background: #4f46e5; color: #fff; }
+  .btn-gray  { background: #6b7280; color: #fff; }
+
+  /* フロー図 */
+  .flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 16px 0;
+  }
+  .flow-box {
+    background: #eff6ff;
+    border: 1px solid #93c5fd;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #1e40af;
+    text-align: center;
+  }
+  .flow-arrow { color: #94a3b8; font-size: 18px; }
+
+  p { margin-bottom: 8px; }
+  ul, ol { padding-left: 20px; margin-bottom: 8px; }
+  li { margin-bottom: 4px; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <h1>📋 見積アプリ 操作マニュアル</h1>
+  <p>株式会社 林製作所｜精密板金見積もりシステム Ver 2.0</p>
+</div>
+
+<div class="container">
+
+  <!-- 目次 -->
+  <div class="toc">
+    <h2>目　次</h2>
+    <ol>
+      <li><a href="#overview">アプリの概要・アクセス方法</a></li>
+      <li><a href="#flow">基本的な操作の流れ</a></li>
+      <li><a href="#step1">Step 1 ― 図面アップロード</a></li>
+      <li><a href="#step2">Step 2 ― 仕様確認・修正</a></li>
+      <li><a href="#step3">Step 3 ― 加工工程の設定</a></li>
+      <li><a href="#step4">Step 4 ― 金額確認・出力</a></li>
+      <li><a href="#multi">複数品番をまとめて見積もる</a></li>
+      <li><a href="#history">履歴タブ（保存・再編集）</a></li>
+      <li><a href="#master">マスタタブ（材料・加工の設定）</a></li>
+      <li><a href="#faq">よくある質問</a></li>
+    </ol>
+  </div>
+
+  <!-- 1. 概要 -->
+  <div class="section" id="overview">
+    <div class="section-header">1. アプリの概要・アクセス方法</div>
+    <div class="section-body">
+      <p>このアプリは、精密板金部品の見積金額をブラウザ上で素早く計算し、Excel・PDF形式で出力するためのシステムです。</p>
+
+      <div class="subsection">
+        <h3>アクセス方法</h3>
+        <p>以下のURLをブラウザで開いてください（ログイン不要）。</p>
+        <p style="font-size:16px; font-weight:bold; color:#2563eb; margin:8px 0;">
+          🌐 https://hayashi-mitsumori.vercel.app
+        </p>
+        <div class="note">スマートフォンでも動作しますが、PC（横長画面）での操作を推奨します。</div>
+      </div>
+
+      <div class="subsection">
+        <h3>画面構成（タブ）</h3>
+        <table>
+          <tr><th>タブ名</th><th>内容</th></tr>
+          <tr><td><strong>見積</strong></td><td>見積の作成・計算・出力（メイン操作画面）</td></tr>
+          <tr><td><strong>履歴</strong></td><td>保存した見積の確認・再編集・削除</td></tr>
+          <tr><td><strong>マスタ</strong></td><td>作成者・材料・加工の単価設定（管理者向け）</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 操作の流れ -->
+  <div class="section" id="flow">
+    <div class="section-header">2. 基本的な操作の流れ</div>
+    <div class="section-body">
+      <div class="flow">
+        <div class="flow-box">Step 1<br>図面アップロード</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Step 2<br>仕様確認・修正</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Step 3<br>加工工程設定</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Step 4<br>金額確認・出力</div>
+      </div>
+      <div class="tip">図面がない場合は Step 1 をスキップして、Step 2 から手動で入力することもできます。</div>
+    </div>
+  </div>
+
+  <!-- 3. Step1 -->
+  <div class="section" id="step1">
+    <div class="section-header">3. Step 1 ― 図面アップロード <span class="badge">任意</span></div>
+    <div class="section-body">
+      <p>図面ファイルをアップロードすると、AIが部品情報（寸法・材質など）を自動で読み取ります。</p>
+
+      <div class="subsection">
+        <h3>対応ファイル形式</h3>
+        <table>
+          <tr><th>形式</th><th>特徴</th></tr>
+          <tr><td>DXF（.dxf）</td><td>穴数・曲げ線数を自動検出し、加工工程に反映</td></tr>
+          <tr><td>PDF（.pdf）</td><td>AIが図面画像を解析して寸法・材質を読み取り</td></tr>
+          <tr><td>画像（.jpg / .png）</td><td>スキャン図面やカメラ撮影にも対応</td></tr>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <h3>操作手順</h3>
+        <ol>
+          <li>点線エリアにファイルをドラッグ＆ドロップ（またはクリックしてファイルを選択）</li>
+          <li>AIが解析中は進行バーが表示されます（数秒〜30秒程度）</li>
+          <li>解析完了後、Step 2 に自動で情報が入力されます</li>
+        </ol>
+        <div class="note">AIの読み取りは完全ではないため、必ず Step 2 で内容を確認・修正してください。</div>
+        <div class="tip">図面がない場合は「手動入力」ボタンをクリックすると Step 2 に進めます。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Step2 -->
+  <div class="section" id="step2">
+    <div class="section-header">4. Step 2 ― 仕様確認・修正</div>
+    <div class="section-body">
+      <p>部品の基本情報と素材・製品サイズを入力します。<strong>すべての項目を確認してから次のステップへ進んでください。</strong></p>
+
+      <div class="subsection">
+        <h3>基本情報</h3>
+        <table>
+          <tr><th>項目</th><th>説明</th><th>例</th></tr>
+          <tr><td>客先名</td><td>見積書に記載する顧客名</td><td>株式会社〇〇</td></tr>
+          <tr><td>図番</td><td>部品の図面番号</td><td>PF-356</td></tr>
+          <tr><td>部品名</td><td>部品の名称</td><td>ブラケット</td></tr>
+          <tr><td>ロット番号</td><td>見積のロット区分（通常は 1）</td><td>1</td></tr>
+          <tr><td>数量</td><td>見積枚数</td><td>100</td></tr>
+          <tr><td>備考</td><td>見積書の備考欄に記載する内容（任意）</td><td>－</td></tr>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <h3>材料情報</h3>
+        <table>
+          <tr><th>項目</th><th>説明</th></tr>
+          <tr><td>材質</td><td>プルダウンから選択。選択すると比重・単価が自動入力されます</td></tr>
+          <tr><td>板厚（mm）</td><td>素材の板厚を入力</td></tr>
+          <tr><td>比重（g/cm³）</td><td>材質選択時に自動入力（変更可）</td></tr>
+          <tr><td>材料単価（円/kg）</td><td>材質選択時に自動入力（変更可）</td></tr>
+          <tr><td>スクラップ単価</td><td>端材の売却単価（円/kg）</td></tr>
+          <tr><td>スクラップを差し引く</td><td>チェックすると材料費からスクラップ代を引いて計算</td></tr>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <h3>サイズ情報</h3>
+        <table>
+          <tr><th>項目</th><th>説明</th></tr>
+          <tr><td>素材X / 素材Y（mm）</td><td>仕入れる板材のサイズ（定尺の場合は 1000×2000 など）</td></tr>
+          <tr><td>製品X / 製品Y（mm）</td><td>完成品の外形サイズ</td></tr>
+        </table>
+        <div class="note">素材サイズと製品サイズから、取り数（何枚取れるか）が自動計算されます。</div>
+      </div>
+
+      <div class="subsection">
+        <h3>材料費サマリ</h3>
+        <p>入力内容をもとに以下が自動計算されて表示されます。</p>
+        <ul>
+          <li>材料重量・製品重量・スクラップ重量</li>
+          <li>取り数（1枚の素材から何製品取れるか）</li>
+          <li>材料費（1個あたり）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Step3 -->
+  <div class="section" id="step3">
+    <div class="section-header">5. Step 3 ― 加工工程の設定</div>
+    <div class="section-body">
+      <p>使用する加工工程をチェックし、数量とレートを確認・調整します。</p>
+
+      <div class="subsection">
+        <h3>工程テーブルの見方</h3>
+        <table>
+          <tr><th>列名</th><th>説明</th></tr>
+          <tr><td>☑（チェックボックス）</td><td>この工程を見積に含める場合はONにする</td></tr>
+          <tr><td>工程名</td><td>加工の種類（レーザー切断・曲げ加工など）</td></tr>
+          <tr><td>数量</td><td>加工の数（長さmm・回数・箇所数など）</td></tr>
+          <tr><td>単位</td><td>数量の単位（mm・回・箇所・枚など）</td></tr>
+          <tr><td>レート（円）</td><td>単位あたりの加工単価</td></tr>
+          <tr><td>段取費（円）</td><td>工程ごとの固定費。ロット数で割って1個あたりに反映</td></tr>
+          <tr><td>金額（円）</td><td>（数量×レート）÷ロット + 段取費÷ロット の計算結果</td></tr>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <h3>工程の追加</h3>
+        <p>テーブル下の「＋ 工程を追加」ボタンから、マスタに登録された工程を追加できます。</p>
+        <div class="tip">DXFファイルをアップロードした場合、穴があればタップ加工、曲げ線があれば曲げ加工が自動でONになります。</div>
+      </div>
+
+      <div class="subsection">
+        <h3>金額サマリ（確認用）</h3>
+        <p>工程テーブルの下に、現在の計算結果が表示されます。</p>
+        <ul>
+          <li><strong>材料費</strong>：Step 2 の入力から自動計算</li>
+          <li><strong>加工費</strong>：チェックONの工程の合計</li>
+          <li><strong>原価</strong>：材料費 ＋ 加工費</li>
+          <li><strong>諸経費</strong>：利益率から計算</li>
+          <li><strong>小計（税抜）／消費税／合計（税込）</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Step4 -->
+  <div class="section" id="step4">
+    <div class="section-header">6. Step 4 ― 金額確認・出力</div>
+    <div class="section-body">
+
+      <div class="subsection">
+        <h3>作成者</h3>
+        <p>プルダウンから見積の担当者名を選択してください。選択した名前が見積書（Excel・PDF）の「担当」欄に印字されます。</p>
+        <div class="note">担当者名はマスタタブの「作成者マスタ」で追加・編集できます。</div>
+      </div>
+
+      <div class="subsection">
+        <h3>利益率・調整額</h3>
+        <table>
+          <tr><th>項目</th><th>説明</th></tr>
+          <tr><td>利益率（%）</td><td>「－」「＋」ボタンまたは直接入力で設定。基本は20%</td></tr>
+          <tr><td>調整額（円）</td><td>単価に加算・減算する金額（端数処理や特別値引きに使用）</td></tr>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <h3>ステータス</h3>
+        <table>
+          <tr><th>ステータス</th><th>意味</th></tr>
+          <tr><td>下書き</td><td>作業中の見積（デフォルト）</td></tr>
+          <tr><td>送付済</td><td>客先へ提出済み</td></tr>
+          <tr><td>承認済</td><td>客先から承認・受注確定</td></tr>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <h3>出力ボタン</h3>
+        <table>
+          <tr><th>ボタン</th><th>動作</th></tr>
+          <tr>
+            <td><span class="btn-label btn-indigo">＋ 行を追加</span></td>
+            <td>現在の品番を見積リストに追加し、次の品番の入力を開始する（複数品番見積に使用）</td>
+          </tr>
+          <tr>
+            <td><span class="btn-label btn-blue">💾 保存</span></td>
+            <td>現在の見積内容をクラウドに保存する（履歴タブで確認可能）</td>
+          </tr>
+          <tr>
+            <td><span class="btn-label btn-green">📊 Excel出力</span></td>
+            <td>見積を自動保存してからExcelファイルをダウンロードする。同じ見積を再出力した場合は上書き保存される</td>
+          </tr>
+          <tr>
+            <td><span class="btn-label btn-red">📄 PDF出力</span></td>
+            <td>印刷用のPDF見積書を開く（ブラウザの印刷ダイアログが表示される）</td>
+          </tr>
+          <tr>
+            <td><span class="btn-label btn-gray">🔄 新規作成</span></td>
+            <td>入力内容をすべてリセットして新しい見積を開始する</td>
+          </tr>
+        </table>
+        <div class="tip">Excel出力ボタンを押すと自動的に保存されるため、通常は「保存」ボタンを別途押す必要はありません。</div>
+        <div class="warn">「新規作成」を押すと入力内容が消えます。必要な場合は先に「保存」またはExcel出力してください。</div>
+      </div>
+
+      <div class="subsection">
+        <h3>材料費・加工費を別枠で記載する</h3>
+        <p>チェックを入れると、Excel・PDF出力時に材料費・加工費・諸経費を列ごとに分けて表示します。</p>
+        <div class="note">客先への内訳開示が必要な場合にのみ使用してください。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. 複数品番 -->
+  <div class="section" id="multi">
+    <div class="section-header">7. 複数品番をまとめて見積もる</div>
+    <div class="section-body">
+      <p>1つの見積書に複数の品番を記載したい場合の手順です。</p>
+      <ol style="font-size:14px; line-height:2;">
+        <li><span class="step-num">1</span> 1品目の情報を Step 1〜3 で入力する</li>
+        <li><span class="step-num">2</span> Step 4 の <span class="btn-label btn-indigo">＋ 行を追加</span> ボタンを押す</li>
+        <li><span class="step-num">3</span> 1品目がリストに追加され、入力欄がリセットされる</li>
+        <li><span class="step-num">4</span> 2品目の情報を入力する</li>
+        <li><span class="step-num">5</span> 必要な品番分だけ繰り返し、最後に Excel または PDF で出力する</li>
+      </ol>
+      <div class="tip">リストの「×」ボタンで、追加した行を個別に削除できます。</div>
+      <div class="note">現在入力中の品番は、リストの<strong>一番下</strong>に青くハイライトされて表示されます。</div>
+    </div>
+  </div>
+
+  <!-- 8. 履歴 -->
+  <div class="section" id="history">
+    <div class="section-header">8. 履歴タブ（保存・再編集）</div>
+    <div class="section-body">
+      <p>「保存」ボタンまたはExcel出力時に自動保存された見積を一覧で確認できます。</p>
+
+      <div class="subsection">
+        <h3>フィルタ・検索</h3>
+        <table>
+          <tr><th>機能</th><th>説明</th></tr>
+          <tr><td>キーワード検索</td><td>図番・部品名・客先名を横断検索。入力するとリアルタイムで絞り込まれる</td></tr>
+          <tr><td>作成者プルダウン</td><td>担当者ごとに絞り込む。履歴に存在する作成者が自動でリストアップされる</td></tr>
+          <tr><td>期間指定</td><td>開始日〜終了日を入力して期間で絞り込む</td></tr>
+          <tr><td>✕ クリア</td><td>すべてのフィルタを一括解除する</td></tr>
+        </table>
+        <div class="note">フィルタエリア右下に「3 / 50 件」のように絞り込み件数が表示されます。</div>
+      </div>
+
+      <div class="subsection">
+        <h3>履歴の操作</h3>
+        <table>
+          <tr><th>操作</th><th>説明</th></tr>
+          <tr><td>行をクリック</td><td>保存した見積を読み込んで再編集できます</td></tr>
+          <tr><td>複製ボタン</td><td>既存の見積をコピーして新しい見積として編集できます</td></tr>
+          <tr><td>削除ボタン</td><td>不要な見積を削除します（確認ダイアログあり）</td></tr>
+        </table>
+      </div>
+
+      <div class="tip">履歴はクラウド（サーバー）に保存されているため、どのPCからアクセスしても同じ見積履歴を共有できます。</div>
+    </div>
+  </div>
+
+  <!-- 9. マスタ -->
+  <div class="section" id="master">
+    <div class="section-header">9. マスタタブ（材料・加工の設定）</div>
+    <div class="section-body">
+      <p>材料単価・加工レート・作成者名の初期値を管理します。<strong>通常の見積作業では変更不要です。</strong></p>
+
+      <div class="subsection">
+        <h3>作成者マスタ</h3>
+        <p>見積書に印字する担当者名を登録します。</p>
+        <table>
+          <tr><th>操作</th><th>説明</th></tr>
+          <tr><td>＋ 追加</td><td>担当者名を新規登録する</td></tr>
+          <tr><td>名前を編集</td><td>テキストボックスを直接編集して名前を変更する</td></tr>
+          <tr><td>× ボタン</td><td>不要な担当者名を削除する</td></tr>
+        </table>
+        <div class="note">登録した名前はクラウドに保存され、全PCで共有されます。Step 4 のプルダウンに反映されます。</div>
+      </div>
+
+      <div class="subsection">
+        <h3>材料マスタ</h3>
+        <table>
+          <tr><th>項目</th><th>説明</th></tr>
+          <tr><td>材質名</td><td>Step 2 のプルダウンに表示される名称</td></tr>
+          <tr><td>板厚(mm)</td><td>特定板厚向けのマスタ（空欄の場合は全板厚共通）</td></tr>
+          <tr><td>比重</td><td>重量計算に使用</td></tr>
+          <tr><td>材料単価（円/kg）</td><td>Step 2 に自動入力される単価</td></tr>
+          <tr><td>スクラップ単価（円/kg）</td><td>端材の売却単価</td></tr>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <h3>加工マスタ</h3>
+        <table>
+          <tr><th>項目</th><th>説明</th></tr>
+          <tr><td>工程名</td><td>Step 3 に表示される工程の名称</td></tr>
+          <tr><td>単位</td><td>数量の単位（mm・回・箇所・枚など）</td></tr>
+          <tr><td>単価（円）</td><td>単位あたりの加工レート</td></tr>
+          <tr><td>段取費（円）</td><td>ロットに関係なく発生する固定費用</td></tr>
+        </table>
+        <div class="note">材料・加工マスタの設定はお使いのブラウザ（端末ごと）に保存されます。PCが変わると設定はリセットされます。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. FAQ -->
+  <div class="section" id="faq">
+    <div class="section-header">10. よくある質問</div>
+    <div class="section-body">
+      <div class="subsection">
+        <h3>Q. 加工費が ¥0 のままになる</h3>
+        <p>Step 3 の工程テーブルで、チェックボックスが<strong>ON（☑）になっているか</strong>確認してください。チェックがない工程は計算に含まれません。</p>
+      </div>
+      <div class="subsection">
+        <h3>Q. PDF出力してもファイルが保存されない</h3>
+        <p>PDFはブラウザの印刷ダイアログから「PDFとして保存」を選んで保存してください。プリンターではなく「PDFに保存」または「Microsoft Print to PDF」を選択してください。</p>
+      </div>
+      <div class="subsection">
+        <h3>Q. Excelファイルの行順が変</h3>
+        <p>「行を追加」した順に上から並びます。最後に入力中の品番が一番下になります。</p>
+      </div>
+      <div class="subsection">
+        <h3>Q. 別のPCで履歴が見えない</h3>
+        <p>見積履歴はクラウドに保存されているため、インターネットに接続していれば同じ履歴を参照できます。ページを再読み込みしても表示されない場合は、システム管理者にご連絡ください。</p>
+      </div>
+      <div class="subsection">
+        <h3>Q. Excel出力したのに履歴に残っていない</h3>
+        <p>Excel出力ボタンを押すと自動的に保存されます。履歴タブを開いて一覧を確認してください。ページを再読み込みすると最新の状態に更新されます。</p>
+      </div>
+      <div class="subsection">
+        <h3>Q. スマホから使えますか？</h3>
+        <p>基本的な操作は可能ですが、テーブルの入力が小さくなるためPCでの操作を推奨します。</p>
+      </div>
+    </div>
+  </div>
+
+  <p style="text-align:center; color:#94a3b8; font-size:12px; margin-top:32px;">
+    株式会社 林製作所　精密板金見積もりシステム　Ver 2.0
+  </p>
+
+</div>
+</body>
+</html>
