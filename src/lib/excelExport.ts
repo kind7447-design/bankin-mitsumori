@@ -77,9 +77,9 @@ export async function exportQuoteToExcel(quote: Quote, breakdownCost = false): P
 
   // ---- 行4〜7: 会社情報（右側）----
   const companyInfo = [
-    '株式会社　林製作所',
-    '群馬県高崎市沖町368-1',
-    'Tel  027-343-1211   Fax  027-343-1213',
+    '',
+    '',
+    '',
     `担当：${quote.createdBy ?? ''}`,
   ];
   companyInfo.forEach((text, i) => {

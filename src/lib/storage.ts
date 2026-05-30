@@ -2,8 +2,8 @@ import { supabase } from './supabase';
 import type { Quote, Material, ProcessItem } from '../types';
 
 const KEYS = {
-  materialMaster: 'hayashi_material_master',
-  processMaster:  'hayashi_process_master',
+  materialMaster: 'bankin_material_master',
+  processMaster:  'bankin_process_master',
 };
 
 // ===== Quotes (Supabase) =====
