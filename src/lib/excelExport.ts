@@ -2,13 +2,7 @@ import ExcelJS from 'exceljs';
 import type { Quote } from '../types';
 
 async function loadSealBuffer(): Promise<ArrayBuffer | null> {
-  try {
-    const res = await fetch('/seal.gif');
-    if (!res.ok) return null;
-    return await res.arrayBuffer();
-  } catch {
-    return null;
-  }
+  return null; // 印鑑なし（汎用版）
 }
 
 export async function exportQuoteToExcel(quote: Quote, breakdownCost = false): Promise<void> {
