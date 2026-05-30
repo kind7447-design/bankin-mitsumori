@@ -1,10 +1,8 @@
-import { getTrialDaysLeft, isTrialExpired, getAiReadCount, AI_LIMIT } from '../../lib/trial';
+import { getTrialDaysLeft, isTrialExpired } from '../../lib/trial';
 
 export default function Header() {
   const daysLeft = getTrialDaysLeft();
   const expired = isTrialExpired();
-  const aiCount = getAiReadCount();
-  const aiRemain = AI_LIMIT - aiCount;
 
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm">
@@ -19,7 +17,6 @@ export default function Header() {
           ) : (
             <span>残り <strong className="text-blue-600">{daysLeft}日</strong></span>
           )}
-          <span>AI読み取り: <strong className={aiRemain <= 10 ? 'text-orange-600' : 'text-blue-600'}>{aiCount}/{AI_LIMIT}枚</strong></span>
         </div>
       </div>
     </header>

@@ -7,7 +7,7 @@ import { parseDxfFile } from './lib/dxfParser';
 import { fileToBase64 } from './lib/pdfExtract';
 import { analyzeDrawingImage } from './lib/aiAnalyzer';
 import { saveQuote, loadQuotes, deleteQuote, saveMaterials, loadMaterials, saveProcessMaster, loadProcessMaster, loadCreators, saveCreators } from './lib/storage';
-import { initTrial, isTrialExpired, isAiLimitReached, incrementAiReadCount } from './lib/trial';
+import { initTrial, isTrialExpired } from './lib/trial';
 import { exportQuoteToExcel } from './lib/excelExport';
 import { exportQuoteToPdf } from './lib/pdfExport';
 
@@ -144,21 +144,15 @@ export default function App() {
         mime = file.type.includes('png') ? 'image/png' : 'image/jpeg';
       }
 
-      // トライアル制限チェック
+      // トライアル期間チェック（期間のみ、枚数はサーバー管理）
       if (isTrialExpired()) {
         setAiProgress('error');
         setAiError('トライアル期間（14日間）が終了しました。正式プランへのお申し込みをお願いします。');
         return;
       }
-      if (isAiLimitReached()) {
-        setAiProgress('error');
-        setAiError('トライアルのAI読み取り上限（100枚）に達しました。正式プランへのお申し込みをお願いします。');
-        return;
-      }
 
       setAiProgress('analyzing');
       const ai = await analyzeDrawingImage(base64, mime);
-      incrementAiReadCount();
       setAiProgress('done');
 
       const mat = materials.find(m => m.name === ai.materialName);
