@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "bankin-mitsumori.vercel.app"
+        }
+      ],
+      "destination": "https://www.bankin-mitsumori.com/$1",
+      "permanent": true
+    }
+  ]
+}
