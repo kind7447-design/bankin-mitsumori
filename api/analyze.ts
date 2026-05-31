@@ -90,11 +90,12 @@ Identify faces from END VIEW / CROSS-SECTION, sum face widths + bend allowances 
 
 ## STEP 3 — COUNT BENDS:
 
-A bend = one 90° fold in the sheet metal. Count ONLY bends supported by visual evidence:
+A bend = ANY fold in the sheet metal, regardless of angle (90°, 45°, 25°, 40°, or any other angle). Count ONLY bends supported by visual evidence:
 
 **Evidence 1 – Cross-section or END VIEW shows a profile with steps/angles:**
 - Each corner/junction in the profile = 1 bend
 - L-shape = 1, U-shape = 2, hat = 4, complex staircase = count each step
+- Angled flanges (e.g. 25°, 40°) shown in cross-section = count each as 1 bend
 
 **Evidence 2 – Dashed lines (破線) in the TOP VIEW or FRONT VIEW:**
 - A dashed line parallel to an edge spanning the full part width/length = a fold line = 1 bend
@@ -104,11 +105,19 @@ A bend = one 90° fold in the sheet metal. Count ONLY bends supported by visual 
 - A labeled dimension showing a tab/flange at the edge of the part in any view = 1 bend per flange
 - Even small 5–20mm flanges count if they are labeled
 
+**Evidence 4 – Isometric / 3D pictorial view:**
+- If the drawing includes a 3D or isometric view showing the part shape, use it to confirm bends
+- A visible angled face or bent flange in the 3D view = 1 bend, even if the angle is not 90°
+
+**Evidence 5 – Angle annotation on drawing:**
+- An explicit angle annotation (e.g. "25°", "40°", "R bend") near an edge = 1 bend at that location
+
 **Rules:**
 - Count ONLY bends you can visually confirm. Do NOT add bends just because of the part name.
 - "4-φX" = 4 holes, NOT 4 bends. Never infer bends from hole notation.
 - If the cross-section shows a flat rectangle with no steps → 0 bends.
 - If you see an L-profile in the END VIEW with a small flange at bottom, that is 1 bend even if small.
+- Non-90° bends still count as bends and require 曲げ加工.
 
 When bendCount > 0: add {"name":"曲げ加工","qty":bendCount,"unit":"回"} to suggestedProcesses.
 
