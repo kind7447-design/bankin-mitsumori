@@ -58,7 +58,7 @@ export default function MaterialMaster({ materials, onChange }: Props) {
                     className="input py-0.5 text-sm w-20"
                     type="number"
                     step="0.1"
-                    placeholder="null"
+                    placeholder="未設定"
                     value={m.thickness ?? ''}
                     onChange={e => update(i, { thickness: e.target.value ? Number(e.target.value) : null })}
                   />

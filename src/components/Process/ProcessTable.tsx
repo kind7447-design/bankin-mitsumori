@@ -35,7 +35,7 @@ export default function ProcessTable({ processes, lot, adjPerimeter, perimeter, 
               const isPerimeter = p.calcType === 'perimeter' || p.calcType === 'perimeter_raw';
               const displayPerimeter = p.calcType === 'perimeter_raw' ? perimeter : adjPerimeter;
               return (
-                <tr key={p.id} className={`border-b ${p.enabled ? '' : 'opacity-40'}`}>
+                <tr key={p.id} className={`border-b ${p.enabled ? 'bg-white' : 'bg-gray-50'}`}>
                   <td className="py-1">
                     <input
                       type="checkbox"
@@ -46,7 +46,7 @@ export default function ProcessTable({ processes, lot, adjPerimeter, perimeter, 
                   </td>
                   <td className="py-1">
                     <input
-                      className="input py-0.5 text-sm"
+                      className={`input py-0.5 text-sm ${p.enabled ? 'text-gray-800 font-medium' : 'text-gray-500'}`}
                       value={p.name}
                       onChange={e => onUpdate(p.id, { name: e.target.value })}
                     />
@@ -95,8 +95,8 @@ export default function ProcessTable({ processes, lot, adjPerimeter, perimeter, 
                       onChange={e => onUpdate(p.id, { setupCost: Number(e.target.value) })}
                     />
                   </td>
-                  <td className="py-1 text-right text-gray-700 pr-1">
-                    {p.enabled ? cost.toLocaleString() : '-'}
+                  <td className={`py-1 text-right pr-1 ${p.enabled ? 'text-gray-800 font-medium' : 'text-gray-300'}`}>
+                    {p.enabled ? cost.toLocaleString() : '—'}
                   </td>
                   <td className="py-1">
                     <button

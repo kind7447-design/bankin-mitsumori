@@ -8,7 +8,7 @@ export default function Header() {
     <header className="bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-5xl mx-auto px-4 py-2 flex items-center gap-4">
         <div className="flex items-center gap-2">
-          <span className="text-blue-700 font-bold text-lg">🔧 板金見積システム</span>
+          <img src="/logo-web.png" alt="板金見積.com" style={{ height: '72px', width: 'auto' }} />
           <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-0.5 rounded-full font-medium">トライアル版</span>
         </div>
         <div className="ml-auto flex items-center gap-4 text-xs text-gray-500">

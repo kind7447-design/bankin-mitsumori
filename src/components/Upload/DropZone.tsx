@@ -7,9 +7,11 @@ interface Props {
   onManual: () => void;
   progress: AiProgressState;
   progressError?: string;
+  confidence?: number;
+  note?: string;
 }
 
-export default function DropZone({ onFile, onManual, progress, progressError }: Props) {
+export default function DropZone({ onFile, onManual, progress, progressError, confidence, note }: Props) {
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -50,7 +52,7 @@ export default function DropZone({ onFile, onManual, progress, progressError }: 
         />
       </div>
 
-      <AiProgressBar state={progress} error={progressError} />
+      <AiProgressBar state={progress} error={progressError} confidence={confidence} note={note} />
 
       <div className="mt-3 text-center">
         <button

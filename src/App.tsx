@@ -13,6 +13,8 @@ import { exportQuoteToPdf } from './lib/pdfExport';
 
 import Header from './components/Layout/Header';
 import TabBar from './components/Layout/TabBar';
+import StepProgressBar from './components/Layout/StepProgressBar';
+import FloatingSummary from './components/Summary/FloatingSummary';
 import DropZone from './components/Upload/DropZone';
 import MaterialForm from './components/Spec/MaterialForm';
 import SizeInputs from './components/Spec/SizeInputs';
@@ -58,6 +60,8 @@ export default function App() {
   const [createdBy, setCreatedBy] = useState('');
   const [aiProgress, setAiProgress] = useState<AiProgressState>('idle');
   const [aiError, setAiError] = useState<string>();
+  const [aiConfidence, setAiConfidence] = useState<number | undefined>();
+  const [aiNote, setAiNote] = useState<string | undefined>();
   const [aiFields, setAiFields] = useState<Set<string>>(new Set());
   const [quoteStatus, setQuoteStatus] = useState<Quote['status']>('draft');
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -107,6 +111,8 @@ export default function App() {
   async function handleFile(file: File) {
     const ext = file.name.split('.').pop()?.toLowerCase();
     setAiError(undefined);
+    setAiConfidence(undefined);
+    setAiNote(undefined);
     setAiProgress('reading');
 
     try {
@@ -170,9 +176,8 @@ export default function App() {
         cornerCount: ai.cornerCount ?? 4,
       });
 
-      if (ai.notes) {
-        setAiError(`📐 AI推定根拠: ${ai.notes}（信頼度: ${Math.round((ai.confidence ?? 0) * 100)}%）`);
-      }
+      setAiConfidence(ai.confidence);
+      setAiNote(ai.notes);
 
       if (ai.suggestedProcesses?.length > 0) {
         const updated = processes.map(p => {
@@ -300,20 +305,25 @@ export default function App() {
       <Header />
       <TabBar active={tab} onChange={setTab} />
 
+      {tab === 'quote' && <StepProgressBar />}
+      {tab === 'quote' && <FloatingSummary result={result} qty={spec.qty} marginRate={marginRate} />}
+
       <main className="max-w-5xl mx-auto px-4 py-6">
 
         {tab === 'quote' && (
           <div className="space-y-4">
-            <Section title="Step 1 — 図面アップロード">
+            <Section title="Step 1 — 図面アップロード" id="step1">
               <DropZone
                 onFile={handleFile}
                 onManual={handleManual}
                 progress={aiProgress}
                 progressError={aiError}
+                confidence={aiConfidence}
+                note={aiNote}
               />
             </Section>
 
-            <Section title="Step 2 — 仕様確認・修正">
+            <Section title="Step 2 — 仕様確認・修正" id="step2">
               <div className="space-y-5">
                 <MaterialForm
                   spec={spec}
@@ -326,7 +336,7 @@ export default function App() {
               </div>
             </Section>
 
-            <Section title="Step 3 — 加工工程">
+            <Section title="Step 3 — 加工工程" id="step3">
               <ProcessTable
                 processes={processes}
                 lot={spec.qty}
@@ -344,7 +354,7 @@ export default function App() {
               />
             </Section>
 
-            <Section title="Step 4 — 金額確認・出力">
+            <Section title="Step 4 — 金額確認・出力" id="step4">
               <div className="space-y-4">
                 <MarginSlider
                   marginRate={marginRate}
@@ -501,9 +511,9 @@ export default function App() {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, children, id }: { title: string; children: React.ReactNode; id?: string }) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div id={id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden scroll-mt-16">
       <div className="bg-gray-50 border-b px-5 py-3">
         <h2 className="font-semibold text-gray-700 text-sm">{title}</h2>
       </div>

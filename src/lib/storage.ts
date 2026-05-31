@@ -46,15 +46,16 @@ export async function loadCreators(): Promise<string[]> {
   const { data } = await supabase
     .from('creators')
     .select('name')
+    .eq('tenant', getTenant())
     .order('sort_order', { ascending: true });
   return data ? data.map(r => r.name as string) : [];
 }
 
 export async function saveCreators(names: string[]): Promise<void> {
-  await supabase.from('creators').delete().neq('id', 0);
+  await supabase.from('creators').delete().eq('tenant', getTenant());
   if (names.length > 0) {
     await supabase.from('creators').insert(
-      names.map((name, i) => ({ name, sort_order: i }))
+      names.map((name, i) => ({ name, sort_order: i, tenant: getTenant() }))
     );
   }
 }

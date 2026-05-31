@@ -3,6 +3,8 @@ import type { AiProgressState } from '../../types';
 interface Props {
   state: AiProgressState;
   error?: string;
+  confidence?: number;
+  note?: string;
 }
 
 const STEPS: { id: AiProgressState; label: string }[] = [
@@ -14,7 +16,7 @@ const STEPS: { id: AiProgressState; label: string }[] = [
 
 const ORDER = ['reading', 'converting', 'analyzing', 'done'];
 
-export default function AiProgressBar({ state, error }: Props) {
+export default function AiProgressBar({ state, error, confidence, note }: Props) {
   if (state === 'idle') return null;
 
   const currentIdx = ORDER.indexOf(state);
@@ -35,7 +37,22 @@ export default function AiProgressBar({ state, error }: Props) {
             <span className="text-sm font-medium text-blue-700">
               {state === 'done' ? '解析完了' : '図面を解析しています…'}
             </span>
+            {state === 'done' && confidence !== undefined && (
+              <span className="text-sm text-green-600 font-medium">
+                信頼度: {Math.round(confidence * 100)}%
+              </span>
+            )}
           </div>
+          {state === 'done' && note && (
+            <details className="mt-1">
+              <summary className="text-xs text-gray-400 cursor-pointer hover:text-gray-600 select-none list-none flex items-center gap-1">
+                <span>▶ AI判断根拠を確認</span>
+              </summary>
+              <p className="mt-2 text-xs text-gray-500 leading-relaxed border-t border-blue-200 pt-2">
+                {note}
+              </p>
+            </details>
+          )}
           <div className="flex gap-1">
             {STEPS.filter(s => s.id !== 'converting' || state === 'converting').map((step, i) => {
               const stepIdx = ORDER.indexOf(step.id);
