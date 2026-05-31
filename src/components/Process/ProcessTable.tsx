@@ -62,8 +62,8 @@ export default function ProcessTable({ processes, lot, adjPerimeter, perimeter, 
                         className="input py-0.5 text-sm text-right w-20"
                         type="number"
                         min={0}
-                        value={p.qty}
-                        onChange={e => onUpdate(p.id, { qty: Number(e.target.value) })}
+                        value={p.qty === 0 ? '' : p.qty}
+                        onChange={e => onUpdate(p.id, { qty: e.target.value === '' ? 0 : Number(e.target.value) })}
                       />
                     )}
                   </td>
@@ -82,8 +82,8 @@ export default function ProcessTable({ processes, lot, adjPerimeter, perimeter, 
                       type="number"
                       min={0}
                       step={isPerimeter ? 0.01 : 1}
-                      value={p.unitPrice}
-                      onChange={e => onUpdate(p.id, { unitPrice: Number(e.target.value) })}
+                      value={p.unitPrice === 0 ? '' : p.unitPrice}
+                      onChange={e => onUpdate(p.id, { unitPrice: e.target.value === '' ? 0 : Number(e.target.value) })}
                     />
                   </td>
                   <td className="py-1">
@@ -91,8 +91,8 @@ export default function ProcessTable({ processes, lot, adjPerimeter, perimeter, 
                       className="input py-0.5 text-sm text-right w-20"
                       type="number"
                       min={0}
-                      value={p.setupCost ?? 0}
-                      onChange={e => onUpdate(p.id, { setupCost: Number(e.target.value) })}
+                      value={(p.setupCost ?? 0) === 0 ? '' : p.setupCost}
+                      onChange={e => onUpdate(p.id, { setupCost: e.target.value === '' ? 0 : Number(e.target.value) })}
                     />
                   </td>
                   <td className={`py-1 text-right pr-1 ${p.enabled ? 'text-gray-800 font-medium' : 'text-gray-300'}`}>
