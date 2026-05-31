@@ -39,7 +39,7 @@ export default function AiProgressBar({ state, error, confidence, note }: Props)
             </span>
             {state === 'done' && confidence !== undefined && (
               <span className="text-sm text-green-600 font-medium">
-                信頼度: {Math.round(confidence * 100)}%
+                信頼度: {Math.min(Math.round(confidence * 100), 80)}%
               </span>
             )}
           </div>
